@@ -5,5 +5,6 @@
 #include "coordinates.h"
 #include "guards.h"
 #include "shaders.h"
+#include "texture.h"
 
 #endif
