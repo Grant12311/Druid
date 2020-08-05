@@ -1,7 +1,6 @@
 #ifndef DRUID_TEXTURE_H
 #define DRUID_TEXTURE_H
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
 namespace Druid
