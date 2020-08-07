@@ -4,5 +4,6 @@
 Druid.cbp
 Druid.depend
 Druid.layout
+install.sh
 
 main.cpp
