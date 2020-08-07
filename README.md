@@ -1,0 +1,1 @@
+Druid is a collection of OpenGL abstractions. Please note: you must include OpenGL manually before including Druid
