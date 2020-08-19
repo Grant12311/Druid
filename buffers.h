@@ -9,12 +9,12 @@ namespace Druid
     {
         unsigned int buffer;
 
-        void bind()
+        void bind() const
         {
             glCall(glBindBuffer(GL_ARRAY_BUFFER, this->buffer));
         }
 
-        void unbind()
+        void unbind() const
         {
             glCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
         }
@@ -39,12 +39,12 @@ namespace Druid
     {
         unsigned int buffer;
 
-        void bind()
+        void bind() const
         {
             glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->buffer));
         }
 
-        void unbind()
+        void unbind() const
         {
             glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         }
@@ -69,12 +69,12 @@ namespace Druid
     {
         unsigned int buffer;
 
-        void bind()
+        void bind() const
         {
             glCall(glBindVertexArray(this->buffer));
         }
 
-        void unbind()
+        void unbind() const
         {
             glCall(glBindVertexArray(0));
         }
