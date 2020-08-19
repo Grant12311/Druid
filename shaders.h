@@ -30,8 +30,8 @@ namespace Druid
         void fillUniform(const char* a_name, const float a_value);
         void fillUniform(const char* a_name, const int a_count, const bool a_transpose, const glm::mat4 &a_matrix);
 
-        void use();
-        void deactivate();
+        void use() const;
+        void deactivate() const;
 
         Shader(const char* a_path);
         Shader(const char* a_vertexShader, const char* a_fragmentShader);
@@ -86,12 +86,12 @@ namespace Druid
         glCall(glUniformMatrix4fv(this->uniformLocations[a_name], a_count, a_transpose, glm::value_ptr(a_matrix)));
     }
 
-    inline void Shader::use()
+    inline void Shader::use() const
     {
         glCall(glUseProgram(this->id));
     }
 
-    inline void Shader::deactivate()
+    inline void Shader::deactivate() const
     {
         glCall(glUseProgram(0));
     }
