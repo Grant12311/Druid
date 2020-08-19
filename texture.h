@@ -28,6 +28,11 @@ namespace Druid
         inline int getWidth() const {return this->m_width;}
         inline int getHeight() const {return this->m_height;}
 
+        operator unsigned int() const
+        {
+            return this->m_ID;
+        }
+
         Texture(const char* const a_path, const bool a_flipY = true, const unsigned int a_minFilter = GL_LINEAR, const unsigned int a_magFilter = GL_LINEAR, const unsigned int a_wrapS = GL_CLAMP_TO_EDGE, const unsigned int a_wrapT = GL_CLAMP_TO_EDGE) :
             m_path{a_path}, m_width{0}, m_height{0}, m_bpp{0}
         {
@@ -40,16 +45,17 @@ namespace Druid
             glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, a_minFilter));
             glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_minFilter));
 
-            glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, a_minFilter));
-            glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, a_minFilter));
+            glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, a_wrapS));
+            glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, a_wrapT));
 
             glCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData));
-            glCall(glBindTexture(GL_TEXTURE_2D, 0));
 
             if (imageData)
             {
+		glCall(glGenerateMipmap(GL_TEXTURE_2D));
                 stbi_image_free(imageData);
             }
+            glCall(glBindTexture(GL_TEXTURE_2D, 0));
         }
 
         ~Texture()
