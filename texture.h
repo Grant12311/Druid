@@ -3,6 +3,8 @@
 
 #include <stb/stb_image.h>
 
+#include "guards.h"
+
 namespace Druid
 {
     class Texture
