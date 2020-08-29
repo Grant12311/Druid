@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include <unordered_map>
 
 #include <glm/glm.hpp>
@@ -22,7 +23,7 @@ namespace Druid
     {
         unsigned int id;
 
-        std::unordered_map<const char*, unsigned int> uniformLocations;
+        std::unordered_map<std::string, unsigned int> uniformLocations;
 
         void fillUniform(const char* a_name, const int a_value);
         void fillUniform(const char* a_name, const float a_value);
@@ -37,8 +38,11 @@ namespace Druid
         Shader(const char* a_vertexShader, const char* a_fragmentShader);
         ~Shader();
     private:
+        void loadUniforms(const std::string &a_source);
+
         ShaderProgramSource parseShader(const std::string &a_filepath);
         unsigned int compileSource(const unsigned int a_type, const std::string &a_source);
+        void genShader(const ShaderProgramSource &a_sources);
     };
 }
 

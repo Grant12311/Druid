@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <algorithm>
 
 #include "../include/gl_include.h"
 
@@ -8,46 +10,26 @@ namespace Druid
 {
     void Shader::fillUniform(const char* a_name, const int a_value)
     {
-        if (this->uniformLocations.find(a_name) == this->uniformLocations.end())
-        {
-            glCall(this->uniformLocations[a_name] = glGetUniformLocation(this->id, a_name));
-        }
         glCall(glUniform1i(this->uniformLocations[a_name], a_value));
     }
 
     void Shader::fillUniform(const char* a_name, const float a_value)
     {
-        if (this->uniformLocations.find(a_name) == this->uniformLocations.end())
-        {
-            glCall(this->uniformLocations[a_name] = glGetUniformLocation(this->id, a_name));
-        }
         glCall(glUniform1f(this->uniformLocations[a_name], a_value));
     }
 
     void Shader::fillUniform(const char* a_name, const float a_value1, const float a_value2, const float a_value3)
     {
-        if (this->uniformLocations.find(a_name) == this->uniformLocations.end())
-        {
-            glCall(this->uniformLocations[a_name] = glGetUniformLocation(this->id, a_name));
-        }
         glCall(glUniform3f(this->uniformLocations[a_name], a_value1, a_value2, a_value3));
     }
 
     void Shader::fillUniform(const char* a_name, const float a_value1, const float a_value2, const float a_value3, const float a_value4)
     {
-        if (this->uniformLocations.find(a_name) == this->uniformLocations.end())
-        {
-            glCall(this->uniformLocations[a_name] = glGetUniformLocation(this->id, a_name));
-        }
         glCall(glUniform4f(this->uniformLocations[a_name], a_value1, a_value2, a_value3, a_value4));
     }
 
     void Shader::fillUniform(const char* a_name, const int a_count, const bool a_transpose, const glm::mat4 &a_matrix)
     {
-        if (this->uniformLocations.find(a_name) == this->uniformLocations.end())
-        {
-            glCall(this->uniformLocations[a_name] = glGetUniformLocation(this->id, a_name));
-        }
         glCall(glUniformMatrix4fv(this->uniformLocations[a_name], a_count, a_transpose, glm::value_ptr(a_matrix)));
     }
 
@@ -65,39 +47,41 @@ namespace Druid
     {
         ShaderProgramSource source = this->parseShader(a_path);
 
-        glCall(this->id = glCreateProgram());
-        glCall(unsigned int vs = this->compileSource(GL_VERTEX_SHADER, source.VertexSource));
-        glCall(unsigned int fs = this->compileSource(GL_FRAGMENT_SHADER, source.FragmentSource));
+        this->genShader(source);
 
-        glCall(glAttachShader(this->id, vs));
-        glCall(glAttachShader(this->id, fs));
-        glCall(glLinkProgram(this->id));
-        glCall(glValidateProgram(this->id));
-
-        glCall(glDeleteShader(vs));
-        glCall(glDeleteShader(fs));
+        this->loadUniforms(source.VertexSource);
+        this->loadUniforms(source.FragmentSource);
     }
 
     Shader::Shader(const char* a_vertexShader, const char* a_fragmentShader)
     {
         ShaderProgramSource source{a_vertexShader, a_fragmentShader};
 
-        glCall(this->id = glCreateProgram());
-        glCall(unsigned int vs = this->compileSource(GL_VERTEX_SHADER, source.VertexSource));
-        glCall(unsigned int fs = this->compileSource(GL_FRAGMENT_SHADER, source.FragmentSource));
+        this->genShader(source);
 
-        glCall(glAttachShader(this->id, vs));
-        glCall(glAttachShader(this->id, fs));
-        glCall(glLinkProgram(this->id));
-        glCall(glValidateProgram(this->id));
-
-        glCall(glDeleteShader(vs));
-        glCall(glDeleteShader(fs));
+        this->loadUniforms(source.VertexSource);
+        this->loadUniforms(source.FragmentSource);
     }
 
     Shader::~Shader()
     {
         glCall(glDeleteProgram(this->id));
+    }
+
+    void Shader::loadUniforms(const std::string &a_source)
+    {
+        int pos = a_source.find("uniform");
+        while (pos != std::string::npos)
+        {
+            std::string line = a_source.substr(pos, a_source.find(";", pos) - pos); // Simicolon is ommited
+            std::string name = line.substr(line.find_last_of(" ") + 1);
+            pos = a_source.find("uniform", pos + 7);
+
+            if (this->uniformLocations.find(name) == this->uniformLocations.end())
+            {
+                glCall(this->uniformLocations[name] = glGetUniformLocation(this->id, name.c_str()));
+            }
+        }
     }
 
     ShaderProgramSource Shader::parseShader(const std::string &a_filepath)
@@ -154,5 +138,20 @@ namespace Druid
         }
 
         return id;
+    }
+
+    void Shader::genShader(const ShaderProgramSource &a_sources)
+    {
+        glCall(this->id = glCreateProgram());
+        glCall(unsigned int vs = this->compileSource(GL_VERTEX_SHADER, a_sources.VertexSource));
+        glCall(unsigned int fs = this->compileSource(GL_FRAGMENT_SHADER, a_sources.FragmentSource));
+
+        glCall(glAttachShader(this->id, vs));
+        glCall(glAttachShader(this->id, fs));
+        glCall(glLinkProgram(this->id));
+        glCall(glValidateProgram(this->id));
+
+        glCall(glDeleteShader(vs));
+        glCall(glDeleteShader(fs));
     }
 }
