@@ -4,23 +4,23 @@
 
 namespace Druid
 {
-    void Texture::bind(const unsigned int a_slot) const
+    void Texture2D::bind(const unsigned int a_slot) const
     {
         glCall(glActiveTexture(GL_TEXTURE0 + a_slot));
         glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
     }
 
-    void Texture::unbind() const
+    void Texture2D::unbind() const
     {
         glCall(glBindTexture(GL_TEXTURE_2D, 0));
     }
 
-    Texture::operator unsigned int() const
+    Texture2D::operator unsigned int() const
     {
         return this->m_ID;
     }
 
-    Texture::Texture(const char* const a_path, const bool a_flipY, const unsigned int a_minFilter, const unsigned int a_magFilter, const unsigned int a_wrapS, const unsigned int a_wrapT) :
+    Texture2D::Texture2D(const char* const a_path, const bool a_flipY, const unsigned int a_minFilter, const unsigned int a_magFilter, const unsigned int a_wrapS, const unsigned int a_wrapT) :
         m_path{a_path}, m_width{0}, m_height{0}, m_bpp{0}
     {
         stbi_set_flip_vertically_on_load(a_flipY);
@@ -45,7 +45,7 @@ namespace Druid
         glCall(glBindTexture(GL_TEXTURE_2D, 0));
     }
 
-    Texture::~Texture()
+    Texture2D::~Texture2D()
     {
         glCall(glDeleteTextures(1, &this->m_ID));
     }

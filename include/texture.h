@@ -7,7 +7,7 @@
 
 namespace Druid
 {
-    class Texture
+    class Texture2D
     {
     private:
         unsigned int m_ID;
@@ -24,8 +24,8 @@ namespace Druid
 
         operator unsigned int() const;
 
-        Texture(const char* const a_path, const bool a_flipY = true, const unsigned int a_minFilter = GL_LINEAR, const unsigned int a_magFilter = GL_LINEAR, const unsigned int a_wrapS = GL_CLAMP_TO_EDGE, const unsigned int a_wrapT = GL_CLAMP_TO_EDGE);
-        ~Texture();
+        Texture2D(const char* const a_path, const bool a_flipY = true, const unsigned int a_minFilter = GL_LINEAR, const unsigned int a_magFilter = GL_LINEAR, const unsigned int a_wrapS = GL_CLAMP_TO_EDGE, const unsigned int a_wrapT = GL_CLAMP_TO_EDGE);
+        ~Texture2D();
     };
 };
 
