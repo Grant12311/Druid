@@ -1,6 +1,8 @@
 #ifndef DRUID_TEXTURE_H
 #define DRUID_TEXTURE_H
 
+#include "gl_include.h"
+
 #include <stb/stb_image.h>
 
 #include "guard.h"
