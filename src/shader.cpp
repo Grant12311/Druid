@@ -33,12 +33,12 @@ namespace Druid
         glCall(glUniformMatrix4fv(this->uniformLocations[a_name], a_count, a_transpose, glm::value_ptr(a_matrix)));
     }
 
-    void Shader::use() const
+    void Shader::bind() const
     {
         glCall(glUseProgram(this->id));
     }
 
-    void Shader::deactivate() const
+    void Shader::unbind() const
     {
         glCall(glUseProgram(0));
     }

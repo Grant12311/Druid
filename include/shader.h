@@ -31,8 +31,8 @@ namespace Druid
         void fillUniform(const char* a_name, const float a_value1, const float a_value2, const float a_value3, const float a_value4);
         void fillUniform(const char* a_name, const int a_count, const bool a_transpose, const glm::mat4 &a_matrix);
 
-        void use() const;
-        void deactivate() const;
+        void bind() const;
+        void unbind() const;
 
         Shader(const char* a_path);
         Shader(const char* a_vertexShader, const char* a_fragmentShader);
