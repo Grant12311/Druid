@@ -21,6 +21,7 @@ workspace("Druid")
     filter("configurations:Release")
         optimize("On")
         flags({"LinkTimeOptimization"})
+        defines({"DRUID_DISABLE_GLCALL"})
 
     project("Druid")
         filename("Druid")
