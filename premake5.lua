@@ -28,4 +28,4 @@ workspace("Druid")
         kind("StaticLib")
         targetdir("bin/%{cfg.platform}/%{cfg.buildcfg}")
 
-        files({"premake5.lua", ".gitignore", "src/**", "include/**"})
+        files({"premake5.lua", "premake5-for-including.lua", ".gitignore", "src/**", "include/**"})
