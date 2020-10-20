@@ -4,6 +4,7 @@ workspace("Druid")
     configurations({"Debug", "Release"})
     platforms({"LinuxARM"})
 
+    includedirs({"include"})
     links({"GL"})
 
     buildoptions({"-std=c++1z", "-Wall", "-Wnon-virtual-dtor", "-Winline", "-Wunreachable-code"})
@@ -26,4 +27,4 @@ workspace("Druid")
         kind("StaticLib")
         targetdir("bin/%{cfg.platform}/%{cfg.buildcfg}")
 
-        files({"premake5.lua", ".gitignore", "src/*", "include/*"})
+        files({"premake5.lua", ".gitignore", "src/**", "include/**"})
