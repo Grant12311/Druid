@@ -24,5 +24,6 @@ workspace("Druid")
     project("Druid")
         filename("Druid")
         kind("StaticLib")
+        targetdir("bin/%{cfg.platform}/%{cfg.buildcfg}")
 
         files({"premake5.lua", ".gitignore", "src/*", "include/*"})
