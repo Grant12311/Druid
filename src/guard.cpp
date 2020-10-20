@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/gl_include.h"
+#include <Druid/gl_include.h>
 
 namespace Druid
 {

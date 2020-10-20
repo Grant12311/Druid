@@ -2,9 +2,9 @@
 #include <string>
 #include <algorithm>
 
-#include "../include/gl_include.h"
+#include <Druid/gl_include.h>
 
-#include "../include/shader.h"
+#include <Druid/shader.h>
 
 namespace Druid
 {

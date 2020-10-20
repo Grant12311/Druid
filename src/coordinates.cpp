@@ -1,4 +1,4 @@
-#include "../include/coordinates.h"
+#include <Druid/coordinates.h>
 
 namespace Druid
 {

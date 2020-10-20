@@ -1,7 +1,7 @@
-#include "../include/gl_include.h"
+#include <Druid/gl_include.h>
 
-#include "../include/guard.h"
-#include "../include/vao.h"
+#include <Druid/guard.h>
+#include <Druid/vao.h>
 
 namespace Druid
 {

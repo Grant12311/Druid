@@ -1,6 +1,6 @@
-#include "../include/gl_include.h"
+#include <Druid/gl_include.h>
 
-#include "../include/texture.h"
+#include <Druid/texture.h>
 
 namespace Druid
 {
