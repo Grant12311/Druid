@@ -30,7 +30,7 @@ namespace Druid
         glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
 
         glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, a_minFilter));
-        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_minFilter));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_magFilter));
 
         glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, a_wrapS));
         glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, a_wrapT));
