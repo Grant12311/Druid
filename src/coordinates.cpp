@@ -6,8 +6,8 @@ namespace Druid
 {
     std::pair<float, float> pixelCoordsToNDC(float a_x, float a_y, const unsigned int a_windowHeight, const unsigned int a_windowWidth)
     {
-        a_x = 2.0f * (a_x + 0.5f) / a_windowWidth - 1.0f;
-        a_y = (2.0f * (a_y + 0.5f) / a_windowHeight - 1.0f) * -1.0f;
+        a_x = 2.0f * (a_x + 0.5f) / static_cast<float>(a_windowWidth) - 1.0f;
+        a_y = (2.0f * (a_y + 0.5f) / static_cast<float>(a_windowHeight) - 1.0f) * -1.0f;
 
         return {a_x, a_y};
     }
