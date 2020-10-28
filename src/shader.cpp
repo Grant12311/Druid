@@ -117,27 +117,27 @@ namespace Druid
 
     unsigned int Shader::compileSource(const unsigned int a_type, const std::string &a_source)
     {
-        glCall(unsigned int id = glCreateShader(a_type));
+        glCall(unsigned int toReturn = glCreateShader(a_type));
         const char* src = a_source.c_str();
-        glCall(glShaderSource(id, 1, &src, nullptr));
-        glCall(glCompileShader(id));
+        glCall(glShaderSource(toReturn, 1, &src, nullptr));
+        glCall(glCompileShader(toReturn));
 
         int result;
-        glCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
+        glCall(glGetShaderiv(toReturn, GL_COMPILE_STATUS, &result));
 
         if (result == GL_FALSE)
         {
             int length;
-            glCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
+            glCall(glGetShaderiv(toReturn, GL_INFO_LOG_LENGTH, &length));
             char* message = (char*)alloca(length * sizeof(char));
-            glCall(glGetShaderInfoLog(id, length, &length, message));
+            glCall(glGetShaderInfoLog(toReturn, length, &length, message));
             std::cout << "Failed to compile shader of type " << a_type << "!" <<std::endl;
             std::cout << message << std::endl;
-            glCall(glDeleteShader(id));
+            glCall(glDeleteShader(toReturn));
             return 0;
         }
 
-        return id;
+        return toReturn;
     }
 
     void Shader::genShader(const ShaderProgramSource &a_sources)
