@@ -70,7 +70,7 @@ namespace Druid
 
     void Shader::loadUniforms(const std::string &a_source)
     {
-        int pos = a_source.find("uniform");
+        size_t pos = a_source.find("uniform");
         while (pos != std::string::npos)
         {
             std::string line = a_source.substr(pos, a_source.find(";", pos) - pos); // Simicolon is ommited
