@@ -1,7 +1,6 @@
 project("Druid")
     language("C++")
     cppdialect("C++17")
-    toolset("gcc")
     filename("Druid")
     kind("StaticLib")
     targetdir("bin/%{cfg.platform}/%{cfg.buildcfg}")

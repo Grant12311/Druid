@@ -1,4 +1,5 @@
 workspace("Druid")
+    toolset(gcc)
     configurations({"Debug", "Release"})
     platforms({"LinuxARM"})
 
