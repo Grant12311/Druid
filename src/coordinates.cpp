@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <Druid/coordinates.h>
 
 namespace Druid
@@ -18,6 +20,9 @@ namespace Druid
                 return true;
             else
                 return false;
+        }else{
+            std::cerr << "Druid error: coordsInRect only supports OriginLocation::lowerLeft!" << std::endl;
+            exit(1);
         }
     }
 }
