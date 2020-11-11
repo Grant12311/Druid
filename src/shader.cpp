@@ -70,16 +70,22 @@ namespace Druid
 
     void Shader::loadUniforms(const std::string &a_source)
     {
-        size_t pos = a_source.find("uniform");
-        while (pos != std::string::npos)
+        int count;
+        glGetProgramiv(this->id, GL_ACTIVE_UNIFORMS, &count);
+
+        int length;
+        int size;
+        unsigned int type;
+
+        for (unsigned int i = 0; i < count; i++)
         {
-            std::string line = a_source.substr(pos, a_source.find(";", pos) - pos); // Simicolon is ommited
-            std::string name = line.substr(line.find_last_of(" ") + 1);
-            pos = a_source.find("uniform", pos + 7);
+            char name[256];
+
+            glGetActiveUniform(this->id, i, 256, &length, &size, &type, name);
 
             if (this->uniformLocations.find(name) == this->uniformLocations.end())
             {
-                glCall(this->uniformLocations[name] = glGetUniformLocation(this->id, name.c_str()));
+                this->uniformLocations[name] = glGetUniformLocation(this->id, name);
             }
         }
     }
