@@ -21,6 +21,10 @@ namespace Druid
         void bind(const unsigned int a_slot = 0) const;
         void unbind() const;
 
+        void setMagFilter(const unsigned int a_magFilter);
+        void setMinFilter(const unsigned int a_minFilter);
+        void setFilters(const unsigned int a_magFilter, const unsigned int a_minFilter);
+
         inline int getWidth() const {return this->m_width;}
         inline int getHeight() const {return this->m_height;}
 

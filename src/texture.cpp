@@ -15,6 +15,46 @@ namespace Druid
         glCall(glBindTexture(GL_TEXTURE_2D, 0));
     }
 
+    void Texture2D::setMagFilter(const unsigned int a_magFilter)
+    {
+        glCall(glActiveTexture(GL_TEXTURE0));
+
+        int backupTexture;
+        glCall(glGetIntegerv(GL_TEXTURE_BINDING_2D, &backupTexture));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_magFilter));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, backupTexture));
+    }
+
+    void Texture2D::setMinFilter(const unsigned int a_minFilter)
+    {
+        glCall(glActiveTexture(GL_TEXTURE0));
+
+        int backupTexture;
+        glCall(glGetIntegerv(GL_TEXTURE_BINDING_2D, &backupTexture));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, a_minFilter));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, backupTexture));
+    }
+
+    void Texture2D::setFilters(const unsigned int a_magFilter, const unsigned int a_minFilter)
+    {
+        glCall(glActiveTexture(GL_TEXTURE0));
+
+        int backupTexture;
+        glCall(glGetIntegerv(GL_TEXTURE_BINDING_2D, &backupTexture));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, a_minFilter));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_magFilter));
+
+        glCall(glBindTexture(GL_TEXTURE_2D, backupTexture));
+    }
+
     Texture2D::operator unsigned int() const
     {
         return this->m_ID;
