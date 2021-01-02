@@ -48,9 +48,7 @@ namespace Druid
         ShaderProgramSource source = this->parseShader(a_path);
 
         this->genShader(source);
-
-        this->loadUniforms(source.VertexSource);
-        this->loadUniforms(source.FragmentSource);
+        this->loadUniforms();
     }
 
     Shader::Shader(const char* a_vertexShader, const char* a_fragmentShader)
@@ -58,9 +56,7 @@ namespace Druid
         ShaderProgramSource source{a_vertexShader, a_fragmentShader};
 
         this->genShader(source);
-
-        this->loadUniforms(source.VertexSource);
-        this->loadUniforms(source.FragmentSource);
+        this->loadUniforms();
     }
 
     Shader::~Shader()
@@ -68,7 +64,7 @@ namespace Druid
         glCall(glDeleteProgram(this->id));
     }
 
-    void Shader::loadUniforms(const std::string &a_source)
+    void Shader::loadUniforms()
     {
         int count;
         glGetProgramiv(this->id, GL_ACTIVE_UNIFORMS, &count);
@@ -77,7 +73,7 @@ namespace Druid
         int size;
         unsigned int type;
 
-        for (unsigned int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             char name[256];
 

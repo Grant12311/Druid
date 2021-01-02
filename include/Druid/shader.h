@@ -38,7 +38,7 @@ namespace Druid
         Shader(const char* a_vertexShader, const char* a_fragmentShader);
         ~Shader();
     private:
-        void loadUniforms(const std::string &a_source);
+        void loadUniforms();
 
         ShaderProgramSource parseShader(const std::string &a_filepath);
         unsigned int compileSource(const unsigned int a_type, const std::string &a_source);
