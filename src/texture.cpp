@@ -85,6 +85,24 @@ namespace Druid
         glCall(glBindTexture(GL_TEXTURE_2D, 0));
     }
 
+    Texture2D::Texture2D(unsigned char* const a_data, const int a_width, const int a_height, const int a_bpp, const unsigned int a_minFilter, const unsigned int a_magFilter, const unsigned int a_wrapS, const unsigned int a_wrapT) :
+        m_path{"pld"}, m_width{a_width}, m_height{a_height}, m_bpp{a_bpp}
+    {
+        glCall(glGenTextures(1, &this->m_ID));
+        glCall(glBindTexture(GL_TEXTURE_2D, this->m_ID));
+
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, a_minFilter));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, a_magFilter));
+
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, a_wrapS));
+        glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, a_wrapT));
+
+        glCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_width, this->m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, a_data));
+
+        glCall(glGenerateMipmap(GL_TEXTURE_2D));
+        glCall(glBindTexture(GL_TEXTURE_2D, 0));
+    }
+
     Texture2D::~Texture2D()
     {
         glCall(glDeleteTextures(1, &this->m_ID));
