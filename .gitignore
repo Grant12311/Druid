@@ -1,9 +1,10 @@
-/bin
-/obj
+/bin/
+/obj/
 
-Druid.cbp
-Druid.depend
-Druid.layout
-Druid.workspace
-Druid.workspace.layout
 Makefile
+
+*.cbp
+*.depend
+*.layout
+*.make
+*.workspace
