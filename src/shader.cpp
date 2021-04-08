@@ -82,6 +82,17 @@ namespace Druid
             if (this->uniformLocations.find(name) == this->uniformLocations.end())
             {
                 this->uniformLocations[name] = glGetUniformLocation(this->id, name);
+
+                if (size > 1)
+                {
+                    std::string coreName = std::string(name).substr(0, std::string(name).find('[') + 1);
+
+                    for (unsigned int i = 1; i < size; i++)
+                    {
+                        std::string fullName = coreName + std::to_string(i) + std::string("]");
+                        this->uniformLocations[fullName] = glGetUniformLocation(this->id, fullName.c_str());
+                    }
+                }
             }
         }
     }
