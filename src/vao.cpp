@@ -17,7 +17,7 @@ namespace Druid
 
     void VAO::setAttrib(const int a_index, const int a_count, const int a_type, const bool a_normalized, const int a_stride, const int a_offset)
     {
-        glCall(glVertexAttribPointer(a_index, a_count, a_type, a_normalized, a_stride, (void*)a_offset));
+        glCall(glVertexAttribPointer(a_index, a_count, a_type, a_normalized, a_stride, reinterpret_cast<void*>(a_offset)));
         glCall(glEnableVertexAttribArray(a_index));
     }
 

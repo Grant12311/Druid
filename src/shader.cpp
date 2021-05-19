@@ -87,7 +87,7 @@ namespace Druid
                 {
                     std::string coreName = std::string(name).substr(0, std::string(name).find('[') + 1);
 
-                    for (unsigned int i = 1; i < size; i++)
+                    for (int i = 1; i < size; i++)
                     {
                         std::string fullName = coreName + std::to_string(i) + std::string("]");
                         this->uniformLocations[fullName] = glGetUniformLocation(this->id, fullName.c_str());
