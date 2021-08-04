@@ -5,6 +5,25 @@
 
 namespace Druid
 {
+    VBO::VBO()
+    {
+        glCall(glGenBuffers(1, &this->buffer));
+    }
+
+    VBO::VBO(const EarlyCreateType /*a_early*/) :
+        buffer(0) {}
+
+    VBO::VBO(VBO &&a_other)
+    {
+        this->buffer = a_other.buffer;
+        a_other.buffer = 0;
+    }
+
+    VBO::~VBO()
+    {
+        glCall(glDeleteBuffers(1, &this->buffer));
+    }
+
     void VBO::bind() const
     {
         glCall(glBindBuffer(GL_ARRAY_BUFFER, this->buffer));
@@ -20,13 +39,14 @@ namespace Druid
         glCall(glBufferData(GL_ARRAY_BUFFER, a_size, a_data, a_usage));
     }
 
-    VBO::VBO()
+    VBO& VBO::operator=(VBO &&a_rhs)
     {
-        glCall(glGenBuffers(1, &this->buffer));
-    }
+        if (this == &a_rhs)
+            return *this;
 
-    VBO::~VBO()
-    {
-        glCall(glDeleteBuffers(1, &this->buffer));
+        this->buffer = a_rhs.buffer;
+        a_rhs.buffer = 0;
+
+        return *this;
     }
 }

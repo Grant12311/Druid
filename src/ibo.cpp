@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <Druid/gl_include.h>
 
 #include <Druid/guard.h>
@@ -5,6 +7,25 @@
 
 namespace Druid
 {
+    IBO::IBO(const EarlyCreateType /*a_early*/) :
+        buffer(0) {}
+
+    IBO::IBO()
+    {
+        glCall(glGenBuffers(1, &this->buffer));
+    }
+
+    IBO::IBO(IBO &&a_other)
+    {
+        this->buffer = a_other.buffer;
+        a_other.buffer = 0;
+    }
+
+    IBO::~IBO()
+    {
+        glCall(glDeleteBuffers(1, &this->buffer));
+    }
+
     void IBO::bind() const
     {
         glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->buffer));
@@ -20,13 +41,14 @@ namespace Druid
         glCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, a_size, a_data, a_usage));
     }
 
-    IBO::IBO()
+    IBO& IBO::operator=(IBO&& a_rhs)
     {
-        glCall(glGenBuffers(1, &this->buffer));
-    }
+        if (this == &a_rhs)
+            return *this;
 
-    IBO::~IBO()
-    {
-        glCall(glDeleteBuffers(1, &this->buffer));
+        this->buffer = a_rhs.buffer;
+        a_rhs.buffer = 0;
+
+        return *this;
     }
 }

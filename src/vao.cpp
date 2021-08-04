@@ -5,6 +5,25 @@
 
 namespace Druid
 {
+    VAO::VAO()
+    {
+        glCall(glGenVertexArrays(1, &this->buffer));
+    }
+
+    VAO::~VAO()
+    {
+        glCall(glDeleteVertexArrays(1, &this->buffer));
+    }
+
+    VAO::VAO(const EarlyCreateType /*a_early*/) :
+        buffer(0) {}
+
+    VAO::VAO(VAO &&a_other)
+    {
+        this->buffer = a_other.buffer;
+        a_other.buffer = 0;
+    }
+
     void VAO::bind() const
     {
         glCall(glBindVertexArray(this->buffer));
@@ -21,13 +40,14 @@ namespace Druid
         glCall(glEnableVertexAttribArray(a_index));
     }
 
-    VAO::VAO()
+    VAO& VAO::operator=(VAO &&a_rhs)
     {
-        glCall(glGenVertexArrays(1, &this->buffer));
-    }
+        if (this == &a_rhs)
+            return *this;
 
-    VAO::~VAO()
-    {
-        glCall(glDeleteVertexArrays(1, &this->buffer));
+        this->buffer = a_rhs.buffer;
+        a_rhs.buffer = 0;
+
+        return *this;
     }
 }
