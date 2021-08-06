@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/mat4x4.hpp>
@@ -60,6 +61,12 @@ namespace Druid
         this->m_loadUniforms();
     }
 
+    Shader::Shader(Shader &&a_other) :
+        m_id(a_other.m_id), m_uniformLocations(std::move(a_other.m_uniformLocations))
+    {
+        a_other.m_id = 0;
+    }
+
     Shader::~Shader()
     {
         glCall(glDeleteProgram(this->m_id));
@@ -98,6 +105,21 @@ namespace Druid
     void Shader::fillUniform(const char* const a_name, const bool a_transpose, const glm::mat4 &a_matrix)
     {
         glCall(glUniformMatrix4fv(this->m_uniformLocations[a_name], 1, a_transpose, glm::value_ptr(a_matrix)));
+    }
+
+    Shader& Shader::operator=(Shader &&a_rhs)
+    {
+        if (this == &a_rhs)
+            return *this;
+
+        glCall(glDeleteProgram(this->m_id));
+
+        this->m_id = a_rhs.m_id;
+        this->m_uniformLocations = std::move(a_rhs.m_uniformLocations);
+
+        a_rhs.m_id = 0;
+
+        return *this;
     }
 
     [[nodiscard]]

@@ -23,6 +23,10 @@ namespace Druid
         Shader(const LoadFromStringType /*a_source*/, const std::string &a_source);
         Shader(const LoadFromFileType /*a_source*/, const std::string &a_vertexPath, const std::string &a_fragmentPath);
         Shader(const LoadFromStringType /*a_source*/, const std::string &a_vertexSource, const std::string &a_fragmentSource);
+
+        Shader(const Shader &a_other) = delete;
+        Shader(Shader &&a_other);
+
         ~Shader();
 
         void bind() const;
@@ -33,6 +37,9 @@ namespace Druid
         void fillUniform(const char* const a_name, const float a_value1, const float a_value2, const float a_value3);
         void fillUniform(const char* const a_name, const float a_value1, const float a_value2, const float a_value3, const float a_value4);
         void fillUniform(const char* const a_name, const bool a_transpose, const glm::mat4 &a_matrix);
+
+        Shader& operator=(const Shader &a_rhs) = delete;
+        Shader& operator=(Shader &&a_rhs);
     private:
         struct ProgramSource
         {
