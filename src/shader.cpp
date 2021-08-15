@@ -136,7 +136,7 @@ namespace Druid
 
         std::string line;
         std::array<std::stringstream, 2> streams;
-        while (getline(a_source, line))
+        while (std::getline(a_source, line))
         {
             if (line.find("#shader") != std::string::npos)
             {
